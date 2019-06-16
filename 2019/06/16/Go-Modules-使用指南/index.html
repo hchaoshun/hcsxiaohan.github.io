@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Go Modules 使用指南 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Go Modules 介绍Modules是Go 1.11中新增的实验性功能，基于vgo演变而来，是一个新型的包管理工具。 Go 1.11 之前的包管理工具都是基于PATH或者vendor目录，并不能很好的解决不同版本依赖问题。Modules是在GOPATH之外一套新的包管理方式。使用Modules可以完全不依赖GOPATH。 注意：Go Modules 需要Go 1.11以上版本 使用指南Exam">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go Modules 使用指南">
+<meta property="og:url" content="http://yoursite.com/2019/06/16/Go-Modules-使用指南/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Go Modules 介绍Modules是Go 1.11中新增的实验性功能，基于vgo演变而来，是一个新型的包管理工具。 Go 1.11 之前的包管理工具都是基于PATH或者vendor目录，并不能很好的解决不同版本依赖问题。Modules是在GOPATH之外一套新的包管理方式。使用Modules可以完全不依赖GOPATH。 注意：Go Modules 需要Go 1.11以上版本 使用指南Exam">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-06-16T05:33:50.192Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Go Modules 使用指南">
+<meta name="twitter:description" content="Go Modules 介绍Modules是Go 1.11中新增的实验性功能，基于vgo演变而来，是一个新型的包管理工具。 Go 1.11 之前的包管理工具都是基于PATH或者vendor目录，并不能很好的解决不同版本依赖问题。Modules是在GOPATH之外一套新的包管理方式。使用Modules可以完全不依赖GOPATH。 注意：Go Modules 需要Go 1.11以上版本 使用指南Exam">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Go-Modules-使用指南" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/16/Go-Modules-使用指南/" class="article-date">
+  <time datetime="2019-06-16T05:33:50.192Z" itemprop="datePublished">2019-06-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Go Modules 使用指南
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Go-Modules-介绍"><a href="#Go-Modules-介绍" class="headerlink" title="Go Modules 介绍"></a>Go Modules 介绍</h2><p>Modules是Go 1.11中新增的实验性功能，基于vgo演变而来，是一个新型的包管理工具。</p>
+<p>Go 1.11 之前的包管理工具都是基于<code>PATH</code>或者<code>vendor</code>目录，并不能很好的解决不同版本依赖问题。Modules是在<code>GOPATH</code>之外一套新的包管理方式。使用Modules可以完全不依赖<code>GOPATH</code>。</p>
+<p>注意：Go Modules 需要Go 1.11以上版本</p>
+<h2 id="使用指南"><a href="#使用指南" class="headerlink" title="使用指南"></a>使用指南</h2><h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><ol>
+<li><p>在<strong>GOPATH之外</strong>创建一个目录  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir -p /tmp/scratchpad/hello</span><br><span class="line">$ <span class="built_in">cd</span> /tmp/scratchpad/hello</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>初始化Module  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ go mod init github.com/you/hello</span><br><span class="line">go: creating new go.mod: module github.com/you/hello</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑hello.go </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"rsc.io/quote"</span></span><br><span class="line">)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(quote.Hello())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编译并运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ go build</span><br><span class="line">$ ./hello</span><br><span class="line">Hello, world.</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>注意: <code>go build</code> 会自动下载依赖包，而<code>golang.org/x/...</code>之类的包需要翻墙，可以添加<code>GOPROXY</code>环境变量设置代理:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export GOPROXY=https://goproxy.io</span><br></pre></td></tr></table></figure>
+
+<p> 此时，<code>go.mod</code>文件会自动更新，它包含项目所需的依赖项和对应版本号  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cat go.mod</span><br><span class="line">module github.com/you/hello</span><br><span class="line">require rsc.io/quote v1.5.2</span><br></pre></td></tr></table></figure>
+
+<p> 除了go.mod之外，go还维护一个名为go.sum的文件，其中包含特定模块版本的预期哈希值：<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> cat go.sum</span><br><span class="line"> golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c h1:qgOY6WgZOaTkIIMiVjBQcw93ERBE4m30iBm00nkL0i8=</span><br><span class="line">golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=</span><br><span class="line">rsc.io/quote v1.5.2 h1:w5fcysjrx7yqtD/aO+QwRjYZOKnaM9Uh2b40tElTs3Y=</span><br><span class="line">rsc.io/quote v1.5.2/go.mod h1:LzX7hefJvL54yjefDEDHNONDjII0t9xZLPXsUe+TKr0=</span><br><span class="line">rsc.io/sampler v1.3.0 h1:7uVkIFmeBqHfdjD+gZwtXXI+RODJ2Wc4O7MPEh/QiW4=</span><br><span class="line">rsc.io/sampler v1.3.0/go.mod h1:T1hPZKmBbMNahiBKFy5HrXp6adAjACjK9JXDnKaTXpA=</span><br></pre></td></tr></table></figure></p>
+<p>go使用<code>go.sum</code>文件确保这些模块的未来下载与第一次下载相同，以此确保项目所依赖的模块不会出现意外更改。<br><code>go.mod</code>和<code>go.sum</code>都应检入版本控制。</p>
+<h3 id="日常WorkFlow"><a href="#日常WorkFlow" class="headerlink" title="日常WorkFlow"></a>日常WorkFlow</h3><p>典型的日常工作流程可能是：</p>
+<ul>
+<li>根据需要在<code>.go</code>代码中添加<code>import</code>语句</li>
+<li>标准命令（如<code>go build</code>或<code>go test</code>）会根据需要自动添加新的依赖项（更新<code>go.mod</code>并下载新的依赖项)</li>
+<li>需要特定版本的时候，可以使用<code>go get</code>指定特定版本如<code>go get foo@v1.2.3</code>, <code>go get foo@master</code>, <code>go get foo@e3702bed2</code>，或者直接编辑<code>go.mod</code>文件</li>
+</ul>
+<p>常用的命令:</p>
+<ul>
+<li><code>go list -m all</code> 查看项目中所有直接和间接依赖关系</li>
+<li><code>go mod tidy</code> 清除未使用的依赖项,并添加其他所需依赖项</li>
+<li><code>go mod vendor</code> 将依赖复制到vendor目录下</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/06/16/Go-Modules-使用指南/" data-id="cjwyiff3v0000mei46tw0gr5m" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/06/16/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/16/Go-Modules-使用指南/">Go Modules 使用指南</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/16/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
