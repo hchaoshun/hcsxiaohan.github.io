@@ -95,7 +95,7 @@
     root: '/',
     scheme: 'Pisces',
     version: '5.1.3',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -280,7 +280,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-16T13:33:50+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-16T16:19:01+08:00">
                 2019-06-16
               </time>
             
@@ -290,6 +290,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming-language/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming language</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -329,47 +351,16 @@
 
       
         
-          
-            <h2 id="Go-Modules-介绍"><a href="#Go-Modules-介绍" class="headerlink" title="Go Modules 介绍"></a>Go Modules 介绍</h2><p>Modules是Go 1.11中新增的实验性功能，基于vgo演变而来，是一个新型的包管理工具。</p>
+          <h2 id="Go-Modules-介绍"><a href="#Go-Modules-介绍" class="headerlink" title="Go Modules 介绍"></a>Go Modules 介绍</h2><p>Modules是Go 1.11中新增的实验性功能，基于vgo演变而来，是一个新型的包管理工具。</p>
 <p>Go 1.11 之前的包管理工具都是基于<code>PATH</code>或者<code>vendor</code>目录，并不能很好的解决不同版本依赖问题。Modules是在<code>GOPATH</code>之外一套新的包管理方式。使用Modules可以完全不依赖<code>GOPATH</code>。</p>
 <p>注意：Go Modules 需要Go 1.11以上版本</p>
-<h2 id="使用指南"><a href="#使用指南" class="headerlink" title="使用指南"></a>使用指南</h2><h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><ol>
-<li><p>在<strong>GOPATH之外</strong>创建一个目录  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir -p /tmp/scratchpad/hello</span><br><span class="line">$ <span class="built_in">cd</span> /tmp/scratchpad/hello</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>初始化Module  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ go mod init github.com/you/hello</span><br><span class="line">go: creating new go.mod: module github.com/you/hello</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>编辑hello.go </p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"rsc.io/quote"</span></span><br><span class="line">)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(quote.Hello())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>编译并运行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ go build</span><br><span class="line">$ ./hello</span><br><span class="line">Hello, world.</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<p>注意: <code>go build</code> 会自动下载依赖包，而<code>golang.org/x/...</code>之类的包需要翻墙，可以添加<code>GOPROXY</code>环境变量设置代理:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export GOPROXY=https://goproxy.io</span><br></pre></td></tr></table></figure>
-
-<p> 此时，<code>go.mod</code>文件会自动更新，它包含项目所需的依赖项和对应版本号  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cat go.mod</span><br><span class="line">module github.com/you/hello</span><br><span class="line">require rsc.io/quote v1.5.2</span><br></pre></td></tr></table></figure>
-
-<p> 除了go.mod之外，go还维护一个名为go.sum的文件，其中包含特定模块版本的预期哈希值：<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> cat go.sum</span><br><span class="line"> golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c h1:qgOY6WgZOaTkIIMiVjBQcw93ERBE4m30iBm00nkL0i8=</span><br><span class="line">golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=</span><br><span class="line">rsc.io/quote v1.5.2 h1:w5fcysjrx7yqtD/aO+QwRjYZOKnaM9Uh2b40tElTs3Y=</span><br><span class="line">rsc.io/quote v1.5.2/go.mod h1:LzX7hefJvL54yjefDEDHNONDjII0t9xZLPXsUe+TKr0=</span><br><span class="line">rsc.io/sampler v1.3.0 h1:7uVkIFmeBqHfdjD+gZwtXXI+RODJ2Wc4O7MPEh/QiW4=</span><br><span class="line">rsc.io/sampler v1.3.0/go.mod h1:T1hPZKmBbMNahiBKFy5HrXp6adAjACjK9JXDnKaTXpA=</span><br></pre></td></tr></table></figure></p>
-<p>go使用<code>go.sum</code>文件确保这些模块的未来下载与第一次下载相同，以此确保项目所依赖的模块不会出现意外更改。<br><code>go.mod</code>和<code>go.sum</code>都应检入版本控制。</p>
-<h3 id="日常WorkFlow"><a href="#日常WorkFlow" class="headerlink" title="日常WorkFlow"></a>日常WorkFlow</h3><p>典型的日常工作流程可能是：</p>
-<ul>
-<li>根据需要在<code>.go</code>代码中添加<code>import</code>语句</li>
-<li>标准命令（如<code>go build</code>或<code>go test</code>）会根据需要自动添加新的依赖项（更新<code>go.mod</code>并下载新的依赖项)</li>
-<li>需要特定版本的时候，可以使用<code>go get</code>指定特定版本如<code>go get foo@v1.2.3</code>, <code>go get foo@master</code>, <code>go get foo@e3702bed2</code>，或者直接编辑<code>go.mod</code>文件</li>
-</ul>
-<p>常用的命令:</p>
-<ul>
-<li><code>go list -m all</code> 查看项目中所有直接和间接依赖关系</li>
-<li><code>go mod tidy</code> 清除未使用的依赖项,并添加其他所需依赖项</li>
-<li><code>go mod vendor</code> 将依赖复制到vendor目录下</li>
-</ul>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/06/16/Go-Modules-使用指南/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -382,6 +373,173 @@
     
 
     
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/08/十年后的我们/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jachin Huang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jachin Huang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/08/十年后的我们/" itemprop="url">十年后的我们</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-08T15:58:22+08:00">
+                2019-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/散文随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">散文随笔</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/06/08/十年后的我们/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/06/08/十年后的我们/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>没有参加过同学会的我，打算回家参加小学同学聚会。这一年我二十五岁，刚刚踏入社会两年。我很想知道，十多年前的玩伴现在成了什么样。</p>
+<p>小镇孩子的世界单纯而美好。学校外面有座小山，当地人叫它凤凰山。山下面有小溪，被浓密的植物覆盖。莓果的香甜气息夹杂泥土味，令人莫名充满幸福感。上学的孩子喜欢吃完午饭早早赶来这儿。溪水清澈如许，提着鞋，裤脚半卷，赤足其中，任潺潺流水划过。灰褐色的斑鸠在蓊郁的树丛里忽隐忽现，发出老而神秘的叫声。终于玩到上课，走进学校，远远看见教室外一排月桂树，在七月的暑气里，洁白如雪的花一片斑斓。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/06/08/十年后的我们/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+    </div>
+
 
     <footer class="post-footer">
       
@@ -451,14 +609,32 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
             
 
           </nav>
@@ -552,6 +728,8 @@
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     
